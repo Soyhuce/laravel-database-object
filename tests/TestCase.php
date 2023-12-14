@@ -4,7 +4,6 @@ namespace Soyhuce\DatabaseObject\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Soyhuce\DatabaseObject\DatabaseObjectServiceProvider;
 
 class TestCase extends Orchestra
 {
