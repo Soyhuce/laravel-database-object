@@ -9,26 +9,26 @@ abstract class DatabaseObject implements JsonSerializable
     /**
      * @param array<string, mixed>  $data
      */
-    abstract public static function create(array $data): static;
+    abstract public static function fromDatabase(array $data): static;
 
     /**
      * @return array<string, mixed>
      */
-    abstract public function jsonSerialize(): array;
+    abstract public function toDatabase(): array;
 
     /**
      * @param array<string, mixed>  $data
      */
-    public static function fromDatabase(array $data): static
+    public static function create(array $data): static
     {
-        return static::create($data);
+        return static::fromDatabase($data);
     }
 
     /**
      * @return array<string, mixed>
      */
-    public function toDatabase(): array
+    public function jsonSerialize(): array
     {
-        return $this->jsonSerialize();
+        return $this->toDatabase();
     }
 }
