@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\:\\:factory\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/DatabaseObject.php
+
+		-
+			message: "#^Property Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\:\\:\\$collectionClass with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/DatabaseObject.php
+
+		-
 			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:createOne\\(\\) should return TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject but returns Illuminate\\\\Support\\\\Collection\\<int, TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\>\\|TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\.$#"
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
@@ -11,12 +21,12 @@ parameters:
 			path: src/Factory/DatabaseObjectFactory.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:guessFactoryNamesUsing\\(\\) has parameter \\$callback with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:guessDatabaseObjectNamesUsing\\(\\) has parameter \\$callback with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:guessModelNamesUsing\\(\\) has parameter \\$callback with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:guessFactoryNamesUsing\\(\\) has parameter \\$callback with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
 

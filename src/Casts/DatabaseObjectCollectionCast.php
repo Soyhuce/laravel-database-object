@@ -14,7 +14,7 @@ use Soyhuce\DatabaseObject\Exceptions\CannotCastException;
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
  * @template TCollectionClass of \Illuminate\Support\Collection
- * @implements CastsAttributes<TCollectionClass<array-key,TDatabaseObject>,TCollectionClass<array-key,TDatabaseObject>>
+ * @implements CastsAttributes<TCollectionClass<array-key,TDatabaseObject>,TCollectionClass<array-key,TDatabaseObject>|array<int, array<array-key, mixed>>>
  */
 class DatabaseObjectCollectionCast implements CastsAttributes
 {
@@ -24,7 +24,7 @@ class DatabaseObjectCollectionCast implements CastsAttributes
      */
     public function __construct(
         private string $class,
-        private string $collectionClass,
+        private string $collectionClass = Collection::class,
     ) {
     }
 
@@ -57,7 +57,7 @@ class DatabaseObjectCollectionCast implements CastsAttributes
 
     /**
      * @param string $key
-     * @param TCollectionClass<array-key, TDatabaseObject>|null $value
+     * @param TCollectionClass<array-key, TDatabaseObject>|array<int, array<array-key, mixed>>|null $value
      * @param array<string, mixed> $attributes
      * @return array<string, array<array-key, array<string, mixed>>|null>
      */
@@ -66,6 +66,16 @@ class DatabaseObjectCollectionCast implements CastsAttributes
         if ($value === null) {
             return [$key => null];
         }
+
+        if (is_array($value)) {
+            $value = $this->collectionClass::make($value);
+        }
+
+        if (!$value instanceof Collection) {
+            throw new InvalidArgumentException('DatabaseObjectCollectionCast expects a Collection');
+        }
+
+        $value = $value->map(fn(mixed $item) => $item instanceof DatabaseObject ? $item : $this->class::create($item));
 
         return [
             $key => Json::encode(

@@ -11,7 +11,7 @@ use Soyhuce\DatabaseObject\Exceptions\CannotCastException;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
- * @implements CastsAttributes<TDatabaseObject,TDatabaseObject>
+ * @implements CastsAttributes<TDatabaseObject,TDatabaseObject|array<string, mixed>>
  */
 class DatabaseObjectCast implements CastsAttributes
 {
@@ -49,7 +49,7 @@ class DatabaseObjectCast implements CastsAttributes
 
     /**
      * @param string $key
-     * @param TDatabaseObject|null $value
+     * @param TDatabaseObject|array<string, mixed>|null $value
      * @param array<string, mixed> $attributes
      * @return array<string, array<string, mixed>|null>
      */
@@ -57,6 +57,10 @@ class DatabaseObjectCast implements CastsAttributes
     {
         if($value === null) {
             return [$key => null];
+        }
+
+        if (is_array($value)) {
+            $value = $this->class::create($value);
         }
 
         return [$key => Json::encode($value->toDatabase())];
