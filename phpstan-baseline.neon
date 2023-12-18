@@ -1,0 +1,36 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:createOne\\(\\) should return TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject but returns Illuminate\\\\Support\\\\Collection\\<int, TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\>\\|TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\.$#"
+			count: 1
+			path: src/Factory/DatabaseObjectFactory.php
+
+		-
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:factoryForDatabaseObject\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Factory/DatabaseObjectFactory.php
+
+		-
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:guessFactoryNamesUsing\\(\\) has parameter \\$callback with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Factory/DatabaseObjectFactory.php
+
+		-
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:guessModelNamesUsing\\(\\) has parameter \\$callback with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Factory/DatabaseObjectFactory.php
+
+		-
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:resolveFactoryName\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Factory/DatabaseObjectFactory.php
+
+		-
+			message: "#^Trying to invoke \\(callable\\(array\\<string, mixed\\>\\)\\: array\\<string, mixed\\>\\)\\|Closure\\|null but it might not be a callable\\.$#"
+			count: 1
+			path: src/Factory/DatabaseObjectFactory.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 2
+			path: src/Factory/DatabaseObjectFactory.php
