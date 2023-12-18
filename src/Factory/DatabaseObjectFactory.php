@@ -338,7 +338,7 @@ abstract class DatabaseObjectFactory
     {
         $databaseObject = $this->databaseObjectName();
 
-        return new $databaseObject($attributes);
+        return $databaseObject::create($attributes);
     }
 
     /**
