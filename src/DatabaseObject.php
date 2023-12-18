@@ -3,6 +3,7 @@
 namespace Soyhuce\DatabaseObject;
 
 use JsonSerializable;
+use Soyhuce\DatabaseObject\Factory\DatabaseObjectFactory;
 
 abstract class DatabaseObject implements JsonSerializable
 {
@@ -30,5 +31,10 @@ abstract class DatabaseObject implements JsonSerializable
     public function jsonSerialize(): array
     {
         return $this->toDatabase();
+    }
+
+    public static function factory(): DatabaseObjectFactory
+    {
+        return DatabaseObjectFactory::factoryForDatabaseObject(static::class);
     }
 }
