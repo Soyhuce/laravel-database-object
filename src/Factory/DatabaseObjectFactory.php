@@ -366,7 +366,7 @@ abstract class DatabaseObjectFactory
     /**
      * @param callable(self<\Soyhuce\DatabaseObject\DatabaseObject, \Illuminate\Support\Collection>): class-string<\Soyhuce\DatabaseObject\DatabaseObject> $callback
      */
-    public static function guessModelNamesUsing(callable $callback): void
+    public static function guessDatabaseObjectNamesUsing(callable $callback): void
     {
         static::$databaseObjectNameResolver = $callback;
     }
