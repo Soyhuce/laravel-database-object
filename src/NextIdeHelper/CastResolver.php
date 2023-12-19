@@ -27,27 +27,29 @@ class CastResolver implements ModelResolver
 
     private function castAsDatabaseObject(Model $model, string $name, string $cast): void
     {
-        [, $arguments] = explode(':', $cast, 2);
+        [, $databaseObjectClass] = explode(':', $cast, 2);
+
         $attribute = $model->attributes->findByName($name);
         if ($attribute === null) {
             return;
         }
 
-        $attribute->setType("\\$arguments");
-        $attribute->nullable = false;
+        $attribute->setType("\\$databaseObjectClass");
+        $attribute->nullable = $attribute->nullableInDatabase;
     }
 
     private function castAsDatabaseObjectCollection(Model $model, string $name, string $cast): void
     {
-        [, $arguments] = explode(':', $cast, 2);
-        [$dataObjectClass, $collectionClass] = explode(',', $arguments, 2) + [null, Collection::class];
+        [, $databaseObjectClass] = explode(':', $cast, 2);
 
         $attribute = $model->attributes->findByName($name);
         if ($attribute === null) {
             return;
         }
 
-        $attribute->setType("\\$collectionClass<int, \\$dataObjectClass>");
-        $attribute->nullable = false;
+        $collectionClass = $databaseObjectClass::newCollection()::class;
+
+        $attribute->setType("\\$collectionClass<int, \\$databaseObjectClass>");
+        $attribute->nullable = $attribute->nullableInDatabase;
     }
 }
