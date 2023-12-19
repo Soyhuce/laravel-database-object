@@ -45,7 +45,7 @@ abstract class DatabaseObject implements JsonSerializable
     public static function collection(array $items): Collection
     {
         return static::newCollection(array_map(
-            fn ($item) => static::create($item),
+            fn (array $item) => static::create($item),
             $items
         ));
     }
@@ -55,7 +55,7 @@ abstract class DatabaseObject implements JsonSerializable
      * @param array<TKey, static> $items
      * @return \Illuminate\Support\Collection<TKey, static>
      */
-    protected static function newCollection(array $items = []): Collection
+    public static function newCollection(array $items = []): Collection
     {
         $collectionClass = static::$collectionClass ?? Collection::class;
 

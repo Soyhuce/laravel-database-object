@@ -13,8 +13,7 @@ use Soyhuce\DatabaseObject\Exceptions\CannotCastException;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
- * @template TCollectionClass of \Illuminate\Support\Collection
- * @implements CastsAttributes<TCollectionClass<array-key,TDatabaseObject>,TCollectionClass<array-key,TDatabaseObject>|array<int, array<array-key, mixed>>>
+ * @implements CastsAttributes<\Illuminate\Support\Collection<array-key,TDatabaseObject>,\Illuminate\Support\Collection<array-key,TDatabaseObject>|array<int, array<array-key, mixed>>>
  */
 class DatabaseObjectCollectionCast implements CastsAttributes
 {
@@ -24,7 +23,6 @@ class DatabaseObjectCollectionCast implements CastsAttributes
      */
     public function __construct(
         private string $class,
-        private string $collectionClass = Collection::class,
     ) {
     }
 
@@ -33,7 +31,7 @@ class DatabaseObjectCollectionCast implements CastsAttributes
      * @param string $key
      * @param mixed $value
      * @param array<string, mixed> $attributes
-     * @return TCollectionClass<array-key, TDatabaseObject>|null
+     * @return \Illuminate\Support\Collection<array-key, TDatabaseObject>|null
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): ?Collection
     {
@@ -50,14 +48,14 @@ class DatabaseObjectCollectionCast implements CastsAttributes
             throw new CannotCastException('Invalid Json string');
         }
 
-        return $this->collectionClass::make(
+        return $this->class::newCollection(
             Arr::map($value, fn ($item) => $this->class::fromDatabase($item))
         );
     }
 
     /**
      * @param string $key
-     * @param TCollectionClass<array-key, TDatabaseObject>|array<int, array<array-key, mixed>>|null $value
+     * @param \Illuminate\Support\Collection<array-key, TDatabaseObject>|array<int, array<array-key, mixed>>|null $value
      * @param array<string, mixed> $attributes
      * @return array<string, array<array-key, array<string, mixed>>|null>
      */
@@ -68,7 +66,7 @@ class DatabaseObjectCollectionCast implements CastsAttributes
         }
 
         if (is_array($value)) {
-            $value = $this->collectionClass::make($value);
+            $value = $this->class::newCollection($value);
         }
 
         if (!$value instanceof Collection) {
