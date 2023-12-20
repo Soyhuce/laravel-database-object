@@ -6,7 +6,7 @@
 [![GitHub PHPStan Action Status](https://img.shields.io/github/actions/workflow/status/soyhuce/laravel-database-object/phpstan.yml?branch=main&label=phpstan)](https://github.com/soyhuce/laravel-database-object/actions?query=workflow%3APHPStan+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/soyhuce/laravel-database-object.svg?style=flat-square)](https://packagist.org/packages/soyhuce/laravel-database-object)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Easily map json columns to PHP Object in Laravel. Faster than spatie/laravel-data.
 
 ## Installation
 
@@ -16,38 +16,9 @@ You can install the package via composer:
 composer require soyhuce/laravel-database-object
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-database-object-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-database-object-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-database-object-views"
-```
-
 ## Usage
 
-```php
-$databaseObject = new Soyhuce\DatabaseObject();
-echo $databaseObject->echoPhrase('Hello, Soyhuce!');
-```
+// TBD
 
 ## Testing
 
