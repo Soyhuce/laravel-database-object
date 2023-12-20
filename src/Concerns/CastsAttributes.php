@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soyhuce\DatabaseObject\Concerns;
 
@@ -10,7 +10,6 @@ trait CastsAttributes
 {
     /**
      * @template TEnum of \BackedEnum
-     * @param mixed $value
      * @param class-string<TEnum> $enumClass
      * @return ($value is null ? null : TEnum)
      */
@@ -20,7 +19,7 @@ trait CastsAttributes
             return null;
         }
 
-        if (is_a($value,$enumClass)) {
+        if (is_a($value, $enumClass)) {
             return $value;
         }
 
@@ -29,8 +28,6 @@ trait CastsAttributes
 
     /**
      * @template TDateTime of \DateTimeInterface
-     * @param mixed $value
-     * @param string $format
      * @param class-string<TDateTime> $dateTimeClass
      * @return ($value is null ? null : TDateTime)
      */
@@ -40,7 +37,7 @@ trait CastsAttributes
             return null;
         }
 
-        if (is_a($value,$dateTimeClass)) {
+        if (is_a($value, $dateTimeClass)) {
             return $value;
         }
 
@@ -49,7 +46,6 @@ trait CastsAttributes
 
     /**
      * @template TDateTime of \DateTimeInterface
-     * @param mixed $value
      * @param class-string<TDateTime> $dateTimeClass
      * @return ($value is null ? null : TDateTime)
      */
@@ -57,6 +53,4 @@ trait CastsAttributes
     {
         return static::asDateTime($value, '!Y-m-d', $dateTimeClass);
     }
-
-
 }

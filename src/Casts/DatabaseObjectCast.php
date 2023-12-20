@@ -1,22 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soyhuce\DatabaseObject\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
-use InvalidArgumentException;
 use Soyhuce\DatabaseObject\DatabaseObject;
 use Soyhuce\DatabaseObject\Exceptions\CannotCastException;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Casts\Uncastable;
 use Spatie\LaravelData\Support\DataProperty;
+use function is_array;
+use function is_string;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
  * @implements CastsAttributes<TDatabaseObject,TDatabaseObject|array<string, mixed>>
  */
-class DatabaseObjectCast implements CastsAttributes, Cast
+class DatabaseObjectCast implements Cast, CastsAttributes
 {
     /**
      * @param class-string<TDatabaseObject> $class
@@ -26,24 +27,21 @@ class DatabaseObjectCast implements CastsAttributes, Cast
     ) {}
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param string $key
-     * @param mixed $value
      * @param array<string, mixed> $attributes
      * @return TDatabaseObject|null
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): ?DatabaseObject
     {
-        if($value === null) {
+        if ($value === null) {
             return null;
         }
 
-        if(!is_string($value)) {
+        if (!is_string($value)) {
             throw new CannotCastException('DatabaseObjectCast expects a string');
         }
 
         $value = Json::decode($value);
-        if(!is_array($value)) {
+        if (!is_array($value)) {
             throw new CannotCastException('Invalid Json string');
         }
 
@@ -51,14 +49,13 @@ class DatabaseObjectCast implements CastsAttributes, Cast
     }
 
     /**
-     * @param string $key
-     * @param TDatabaseObject|array<string, mixed>|null $value
+     * @param array<string, mixed>|TDatabaseObject|null $value
      * @param array<string, mixed> $attributes
      * @return array<string, array<string, mixed>|null>
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): array
     {
-        if($value === null) {
+        if ($value === null) {
             return [$key => null];
         }
 
@@ -71,11 +68,11 @@ class DatabaseObjectCast implements CastsAttributes, Cast
 
     /**
      * @param array<string, mixed> $context
-     * @return \Soyhuce\DatabaseObject\DatabaseObject<TDatabaseObject>|\Spatie\LaravelData\Casts\Uncastable
+     * @return TDatabaseObject|\Spatie\LaravelData\Casts\Uncastable
      */
     public function cast(DataProperty $property, mixed $value, array $context): DatabaseObject|Uncastable
     {
-        if(!is_array($value)) {
+        if (!is_array($value)) {
             return Uncastable::create();
         }
 

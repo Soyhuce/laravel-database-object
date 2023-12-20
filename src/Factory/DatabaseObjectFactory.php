@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soyhuce\DatabaseObject\Factory;
 
@@ -6,24 +6,18 @@ use Closure;
 use Faker\Generator;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Factories\BelongsToManyRelationship;
-use Illuminate\Database\Eloquent\Factories\BelongsToRelationship;
 use Illuminate\Database\Eloquent\Factories\CrossJoinSequence;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\Relationship;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Enumerable;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Conditionable;
-use Illuminate\Support\Traits\ForwardsCalls;
 use Illuminate\Support\Traits\Macroable;
 use Soyhuce\DatabaseObject\DatabaseObject;
 use Throwable;
+use function count;
+use function is_array;
+use function is_callable;
+use function is_string;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
@@ -31,23 +25,8 @@ use Throwable;
  */
 abstract class DatabaseObjectFactory
 {
-    use Conditionable, Macroable;
-
-    /** @var class-string<TDatabaseObject>|null */
-    protected ?string $databaseObject = null;
-
-    /** @var class-string<TCollection>  */
-    protected string $collection = Collection::class;
-
-    protected ?int $count;
-
-    /** @var \Illuminate\Support\Collection<int, callable(array<string, mixed>): array<string, mixed>> */
-    protected Collection $states;
-
-    /** @var \Illuminate\Support\Collection<int, \Closure(TDatabaseObject): mixed> */
-    protected Collection $afterCreating;
-
-    protected Generator $faker;
+    use Conditionable;
+    use Macroable;
 
     public static string $namespace = 'Database\\Factories\\';
 
@@ -57,9 +36,25 @@ abstract class DatabaseObjectFactory
     /** @var ?callable */
     protected static $factoryNameResolver = null;
 
+    /** @var class-string<TDatabaseObject>|null */
+    protected ?string $databaseObject = null;
+
+    /** @var class-string<TCollection> */
+    protected string $collection = Collection::class;
+
+    protected ?int $count;
+
+    /** @var \Illuminate\Support\Collection<int, callable(array<string, mixed>): array<string, mixed>> */
+    protected Collection $states;
+
+    /** @var \Illuminate\Support\Collection<int, Closure(TDatabaseObject): mixed> */
+    protected Collection $afterCreating;
+
+    protected Generator $faker;
+
     /**
      * @param \Illuminate\Support\Collection<int, callable(array<string, mixed>): array<string, mixed>> $states
-     * @param \Illuminate\Support\Collection<int, \Closure(TDatabaseObject): mixed> $afterCreating
+     * @param \Illuminate\Support\Collection<int, Closure(TDatabaseObject): mixed> $afterCreating
      */
     public function __construct(
         ?int $count = null,
@@ -82,7 +77,7 @@ abstract class DatabaseObjectFactory
      */
     public static function new(array|callable $attributes = []): static
     {
-        return (new static)->state($attributes)->configure();
+        return (new static())->state($attributes)->configure();
     }
 
     public static function times(int $count): static
@@ -120,14 +115,13 @@ abstract class DatabaseObjectFactory
         return $this->count(null)->create($attributes);
     }
 
-
     /**
-     * @param int|null|iterable<int, array<string, mixed>> $records
+     * @param int|iterable<int, array<string, mixed>>|null $records
      * @return TCollection<int, TDatabaseObject>
      */
     public function createMany(int|iterable|null $records = null): Collection
     {
-        if (is_null($records)) {
+        if (null === $records) {
             $records = $this->count ?? 1;
         }
 
@@ -152,14 +146,12 @@ abstract class DatabaseObjectFactory
 
         $results = $this->make();
 
-
         $this->callAfterCreating(
             $results instanceof DatabaseObject ? $this->newCollection([$results]) : $results
         );
 
         return $results;
     }
-
 
     /**
      * @return TCollection<int, TDatabaseObject>|TDatabaseObject
@@ -216,7 +208,6 @@ abstract class DatabaseObjectFactory
     }
 
     /**
-     * @param mixed $items
      * @return TCollection<int, TDatabaseObject>
      */
     protected function newCollection(mixed $items = []): Collection
@@ -285,14 +276,13 @@ abstract class DatabaseObjectFactory
     /**
      * @param array<int, mixed> ...$sequence
      */
-    public function crossJoinSequence(array...$sequence): static
+    public function crossJoinSequence(array ...$sequence): static
     {
         return $this->state(new CrossJoinSequence(...$sequence));
     }
 
-
     /**
-     * @param \Closure(TDatabaseObject): mixed $callback
+     * @param Closure(TDatabaseObject): mixed $callback
      */
     public function afterCreating(Closure $callback): static
     {
@@ -301,12 +291,11 @@ abstract class DatabaseObjectFactory
 
     /**
      * @param TCollection<int, TDatabaseObject> $instances
-     * @return void
      */
     protected function callAfterCreating(Collection $instances): void
     {
-        $instances->each(function (DatabaseObject $model) {
-            $this->afterCreating->each(function ($callback) use ($model) {
+        $instances->each(function (DatabaseObject $model): void {
+            $this->afterCreating->each(function ($callback) use ($model): void {
                 $callback($model);
             });
         });
@@ -316,7 +305,6 @@ abstract class DatabaseObjectFactory
     {
         return $this->newInstance(['count' => $count]);
     }
-
 
     /**
      * @param array<string, mixed> $arguments
@@ -348,7 +336,9 @@ abstract class DatabaseObjectFactory
     {
         $resolver = static::$databaseObjectNameResolver ?? function (self $factory) {
             $namespacedFactoryBasename = Str::replaceLast(
-                'Factory', '', Str::replaceFirst(static::$namespace, '', get_class($factory))
+                'Factory',
+                '',
+                Str::replaceFirst(static::$namespace, '', $factory::class)
             );
 
             $factoryBasename = Str::replaceLast('Factory', '', class_basename($factory));
@@ -371,9 +361,6 @@ abstract class DatabaseObjectFactory
         static::$databaseObjectNameResolver = $callback;
     }
 
-    /**
-     * @param string $namespace
-     */
     public static function useNamespace(string $namespace): void
     {
         static::$namespace = $namespace;
@@ -384,7 +371,7 @@ abstract class DatabaseObjectFactory
      * @param class-string<TObject> $databaseObjectName
      * @return \Soyhuce\DatabaseObject\Factory\DatabaseObjectFactory<TObject, \Illuminate\Support\Collection>
      */
-    public static function factoryForDatabaseObject(string $databaseObjectName): DatabaseObjectFactory
+    public static function factoryForDatabaseObject(string $databaseObjectName): self
     {
         $factory = static::resolveFactoryName($databaseObjectName);
 

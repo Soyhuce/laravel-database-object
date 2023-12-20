@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soyhuce\DatabaseObject\Casts;
 
@@ -13,26 +13,23 @@ use Soyhuce\DatabaseObject\Exceptions\CannotCastException;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Casts\Uncastable;
 use Spatie\LaravelData\Support\DataProperty;
+use function is_array;
+use function is_string;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
  * @implements CastsAttributes<\Illuminate\Support\Collection<array-key,TDatabaseObject>,\Illuminate\Support\Collection<array-key,TDatabaseObject>|array<int, array<array-key, mixed>>>
  */
-class DatabaseObjectCollectionCast implements CastsAttributes, Cast
+class DatabaseObjectCollectionCast implements Cast, CastsAttributes
 {
     /**
      * @param class-string<TDatabaseObject> $class
-     * @param class-string<TCollectionClass> $collectionClass
      */
     public function __construct(
         private string $class,
-    ) {
-    }
+    ) {}
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param string $key
-     * @param mixed $value
      * @param array<string, mixed> $attributes
      * @return \Illuminate\Support\Collection<array-key, TDatabaseObject>|null
      */
@@ -57,8 +54,7 @@ class DatabaseObjectCollectionCast implements CastsAttributes, Cast
     }
 
     /**
-     * @param string $key
-     * @param \Illuminate\Support\Collection<array-key, TDatabaseObject>|array<int, array<array-key, mixed>>|null $value
+     * @param array<array-key, array<array-key, mixed>>|\Illuminate\Support\Collection<array-key, TDatabaseObject>|null $value
      * @param array<string, mixed> $attributes
      * @return array<string, array<array-key, array<string, mixed>>|null>
      */
@@ -76,7 +72,7 @@ class DatabaseObjectCollectionCast implements CastsAttributes, Cast
             throw new InvalidArgumentException('DatabaseObjectCollectionCast expects a Collection');
         }
 
-        $value = $value->map(fn(mixed $item) => $item instanceof DatabaseObject ? $item : $this->class::create($item));
+        $value = $value->map(fn (mixed $item) => $item instanceof DatabaseObject ? $item : $this->class::create($item));
 
         return [
             $key => Json::encode(

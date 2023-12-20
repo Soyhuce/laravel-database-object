@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soyhuce\DatabaseObject\Concerns;
 
@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 trait HasCollection
 {
-    /** @var class-string<\Illuminate\Support\Collection>  */
+    /** @var class-string<\Illuminate\Support\Collection> */
     protected static string $collectionClass;
 
     /**

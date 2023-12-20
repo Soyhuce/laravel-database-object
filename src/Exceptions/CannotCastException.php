@@ -1,9 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soyhuce\DatabaseObject\Exceptions;
 
 use RuntimeException;
 
-class CannotCastException extends RuntimeException
-{
-}
+class CannotCastException extends RuntimeException {}

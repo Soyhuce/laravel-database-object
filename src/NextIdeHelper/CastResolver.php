@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soyhuce\DatabaseObject\NextIdeHelper;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Soyhuce\DatabaseObject\Casts\DatabaseObjectCast;
 use Soyhuce\DatabaseObject\Casts\DatabaseObjectCollectionCast;
@@ -15,11 +14,10 @@ class CastResolver implements ModelResolver
     {
         $casts = $model->instance()->getCasts();
 
-
         foreach ($casts as $name => $cast) {
-            if (Str::startsWith($cast, DatabaseObjectCast::class.':')) {
+            if (Str::startsWith($cast, DatabaseObjectCast::class . ':')) {
                 $this->castAsDatabaseObject($model, $name, $cast);
-            }elseif (Str::startsWith($cast, DatabaseObjectCollectionCast::class.':')) {
+            } elseif (Str::startsWith($cast, DatabaseObjectCollectionCast::class . ':')) {
                 $this->castAsDatabaseObjectCollection($model, $name, $cast);
             }
         }
@@ -34,7 +32,7 @@ class CastResolver implements ModelResolver
             return;
         }
 
-        $attribute->setType("\\$databaseObjectClass");
+        $attribute->setType("\\{$databaseObjectClass}");
         $attribute->nullable = $attribute->nullableInDatabase;
     }
 
@@ -49,7 +47,7 @@ class CastResolver implements ModelResolver
 
         $collectionClass = $databaseObjectClass::newCollection()::class;
 
-        $attribute->setType("\\$collectionClass<int, \\$databaseObjectClass>");
+        $attribute->setType("\\{$collectionClass}<int, \\{$databaseObjectClass}>");
         $attribute->nullable = $attribute->nullableInDatabase;
     }
 }
