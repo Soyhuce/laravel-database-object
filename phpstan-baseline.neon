@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to an undefined static method TDateTime of DateTimeInterface\\:\\:createFromFormat\\(\\)\\.$#"
+			count: 1
+			path: src/DatabaseObject.php
+
+		-
+			message: "#^Method Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\:\\:collectionClass\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/DatabaseObject.php
+
+		-
 			message: "#^Method Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\:\\:factory\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/DatabaseObject.php

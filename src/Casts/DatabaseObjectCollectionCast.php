@@ -48,7 +48,7 @@ class DatabaseObjectCollectionCast implements Cast, CastsAttributes
             throw new CannotCastException('Invalid Json string');
         }
 
-        return $this->class::newCollection(
+        return $this->class::collectionClass()::make(
             Arr::map($value, fn ($item) => $this->class::fromDatabase($item))
         );
     }
@@ -65,7 +65,7 @@ class DatabaseObjectCollectionCast implements Cast, CastsAttributes
         }
 
         if (is_array($value)) {
-            $value = $this->class::newCollection($value);
+            $value = $this->class::collectionClass()::make($value);
         }
 
         if (!$value instanceof Collection) {

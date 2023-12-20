@@ -45,7 +45,7 @@ class CastResolver implements ModelResolver
             return;
         }
 
-        $collectionClass = $databaseObjectClass::newCollection()::class;
+        $collectionClass = $databaseObjectClass::collectionClass();
 
         $attribute->setType("\\{$collectionClass}<int, \\{$databaseObjectClass}>");
         $attribute->nullable = $attribute->nullableInDatabase;

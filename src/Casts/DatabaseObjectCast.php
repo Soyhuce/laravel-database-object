@@ -68,7 +68,7 @@ class DatabaseObjectCast implements Cast, CastsAttributes
 
     /**
      * @param array<string, mixed> $context
-     * @return TDatabaseObject|\Spatie\LaravelData\Casts\Uncastable
+     * @return \Spatie\LaravelData\Casts\Uncastable|TDatabaseObject
      */
     public function cast(DataProperty $property, mixed $value, array $context): DatabaseObject|Uncastable
     {

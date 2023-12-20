@@ -2,6 +2,7 @@
 
 namespace Soyhuce\DatabaseObject\Concerns;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 trait HasCollection
@@ -12,25 +13,21 @@ trait HasCollection
     /**
      * @template TKey of array-key
      * @param array<TKey, array<string, mixed>> $items
-     * @return \Illuminate\Support\Collection<int, static>
+     * @return \Illuminate\Support\Collection<TKey, static>
      */
     public static function collection(array $items): Collection
     {
-        return static::newCollection(array_map(
+        return static::collectionClass()::make(Arr::map(
+            $items,
             fn (array $item) => static::create($item),
-            $items
         ));
     }
 
     /**
-     * @template TKey of array-key
-     * @param array<TKey, static> $items
-     * @return \Illuminate\Support\Collection<TKey, static>
+     * @return class-string<\Illuminate\Support\Collection>
      */
-    public static function newCollection(array $items = []): Collection
+    public static function collectionClass(): string
     {
-        $collectionClass = static::$collectionClass ?? Collection::class;
-
-        return new $collectionClass($items);
+        return static::$collectionClass ?? Collection::class;
     }
 }
