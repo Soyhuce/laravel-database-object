@@ -10,12 +10,15 @@ use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Soyhuce\DatabaseObject\DatabaseObject;
 use Soyhuce\DatabaseObject\Exceptions\CannotCastException;
+use Spatie\LaravelData\Casts\Cast;
+use Spatie\LaravelData\Casts\Uncastable;
+use Spatie\LaravelData\Support\DataProperty;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
  * @implements CastsAttributes<\Illuminate\Support\Collection<array-key,TDatabaseObject>,\Illuminate\Support\Collection<array-key,TDatabaseObject>|array<int, array<array-key, mixed>>>
  */
-class DatabaseObjectCollectionCast implements CastsAttributes
+class DatabaseObjectCollectionCast implements CastsAttributes, Cast
 {
     /**
      * @param class-string<TDatabaseObject> $class
@@ -80,5 +83,18 @@ class DatabaseObjectCollectionCast implements CastsAttributes
                 $value->map(fn (DatabaseObject $databaseObject) => $databaseObject->toDatabase())
             ),
         ];
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     * @return \Illuminate\Support\Collection<array-key, TDatabaseObject>|\Spatie\LaravelData\Casts\Uncastable
+     */
+    public function cast(DataProperty $property, mixed $value, array $context): Collection|Uncastable
+    {
+        if (!is_array($value)) {
+            return Uncastable::create();
+        }
+
+        return $this->class::collection($value);
     }
 }

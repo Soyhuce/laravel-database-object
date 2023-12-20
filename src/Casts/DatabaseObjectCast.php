@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use Soyhuce\DatabaseObject\DatabaseObject;
 use Soyhuce\DatabaseObject\Exceptions\CannotCastException;
+use Spatie\LaravelData\Casts\Cast;
+use Spatie\LaravelData\Casts\Uncastable;
+use Spatie\LaravelData\Support\DataProperty;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
  * @implements CastsAttributes<TDatabaseObject,TDatabaseObject|array<string, mixed>>
  */
-class DatabaseObjectCast implements CastsAttributes
+class DatabaseObjectCast implements CastsAttributes, Cast
 {
     /**
      * @param class-string<TDatabaseObject> $class
@@ -64,5 +67,18 @@ class DatabaseObjectCast implements CastsAttributes
         }
 
         return [$key => Json::encode($value->toDatabase())];
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     * @return \Soyhuce\DatabaseObject\DatabaseObject<TDatabaseObject>|\Spatie\LaravelData\Casts\Uncastable
+     */
+    public function cast(DataProperty $property, mixed $value, array $context): DatabaseObject|Uncastable
+    {
+        if(!is_array($value)) {
+            return Uncastable::create();
+        }
+
+        return $this->class::create($value);
     }
 }
