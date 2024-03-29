@@ -14,7 +14,7 @@ use function is_string;
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
  * @implements CastsAttributes<TDatabaseObject,TDatabaseObject|array<string, mixed>>
  */
-class DatabaseObjectCast implements Cast, CastsAttributes
+class DatabaseObjectCast implements CastsAttributes
 {
     /**
      * @param class-string<TDatabaseObject> $class
