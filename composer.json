@@ -31,7 +31,7 @@
         "pestphp/pest-plugin-laravel": "^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "soyhuce/next-ide-helper": "^0.18.0"
+        "soyhuce/next-ide-helper": "^0.19.2"
     },
     "autoload": {
         "psr-4": {
