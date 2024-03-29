@@ -73,7 +73,7 @@ abstract class DatabaseObjectFactory
     abstract public function definition(): array;
 
     /**
-     * @param (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed> $attributes
+     * @param array<string, mixed>|(callable(array<string, mixed>): array<string, mixed>) $attributes
      */
     public static function new(array|callable $attributes = []): static
     {
@@ -91,7 +91,7 @@ abstract class DatabaseObjectFactory
     }
 
     /**
-     * @param (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed> $attributes
+     * @param array<string, mixed>|(callable(array<string, mixed>): array<string, mixed>) $attributes
      * @return array<array-key, mixed>
      */
     public function raw(array|callable $attributes = []): array
@@ -107,7 +107,7 @@ abstract class DatabaseObjectFactory
     }
 
     /**
-     * @param (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed> $attributes
+     * @param array<string, mixed>|(callable(array<string, mixed>): array<string, mixed>) $attributes
      * @return TDatabaseObject
      */
     public function createOne(array|callable $attributes = []): DatabaseObject
@@ -135,7 +135,7 @@ abstract class DatabaseObjectFactory
     }
 
     /**
-     * @param (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed> $attributes
+     * @param array<string, mixed>|(callable(array<string, mixed>): array<string, mixed>) $attributes
      * @return TCollection<int, TDatabaseObject>|TDatabaseObject
      */
     public function create(array|callable $attributes = []): Collection|DatabaseObject
@@ -244,7 +244,7 @@ abstract class DatabaseObjectFactory
     }
 
     /**
-     * @param (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed> $state
+     * @param array<string, mixed>|(callable(array<string, mixed>): array<string, mixed>) $state
      */
     public function state(array|callable $state): static
     {

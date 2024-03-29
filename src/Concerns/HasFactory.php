@@ -9,8 +9,8 @@ use function is_callable;
 trait HasFactory
 {
     /**
-     * @param (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed>|int|null $count
-     * @param (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed> $state
+     * @param array<string, mixed>|(callable(array<string, mixed>): array<string, mixed>)|int|null $count
+     * @param array<string, mixed>|(callable(array<string, mixed>): array<string, mixed>) $state
      * @return \Soyhuce\DatabaseObject\Factory\DatabaseObjectFactory<static, \Illuminate\Support\Collection>
      */
     public static function factory(int|array|callable|null $count = null, array|callable $state = []): DatabaseObjectFactory
