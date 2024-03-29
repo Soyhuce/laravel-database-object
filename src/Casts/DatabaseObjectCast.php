@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
 use Soyhuce\DatabaseObject\DatabaseObject;
 use Soyhuce\DatabaseObject\Exceptions\CannotCastException;
-use Spatie\LaravelData\Casts\Cast;
-use Spatie\LaravelData\Casts\Uncastable;
-use Spatie\LaravelData\Support\DataProperty;
 use function is_array;
 use function is_string;
 
@@ -64,18 +61,5 @@ class DatabaseObjectCast implements Cast, CastsAttributes
         }
 
         return [$key => Json::encode($value->toDatabase())];
-    }
-
-    /**
-     * @param array<string, mixed> $context
-     * @return \Spatie\LaravelData\Casts\Uncastable|TDatabaseObject
-     */
-    public function cast(DataProperty $property, mixed $value, array $context): DatabaseObject|Uncastable
-    {
-        if (!is_array($value)) {
-            return Uncastable::create();
-        }
-
-        return $this->class::create($value);
     }
 }
