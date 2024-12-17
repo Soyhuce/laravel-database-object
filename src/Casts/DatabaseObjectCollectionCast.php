@@ -28,7 +28,7 @@ class DatabaseObjectCollectionCast implements CastsAttributes
 
     /**
      * @param array<string, mixed> $attributes
-     * @return \Illuminate\Support\Collection<array-key, TDatabaseObject>|null
+     * @return Collection<array-key, TDatabaseObject>|null
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): ?Collection
     {
@@ -51,7 +51,7 @@ class DatabaseObjectCollectionCast implements CastsAttributes
     }
 
     /**
-     * @param array<array-key, array<array-key, mixed>>|\Illuminate\Support\Collection<array-key, TDatabaseObject>|null $value
+     * @param array<array-key, array<array-key, mixed>>|Collection<array-key, TDatabaseObject>|null $value
      * @param array<string, mixed> $attributes
      * @return array<string, array<array-key, array<string, mixed>>|null>
      */
