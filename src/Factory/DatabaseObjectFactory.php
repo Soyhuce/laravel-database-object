@@ -44,17 +44,17 @@ abstract class DatabaseObjectFactory
 
     protected ?int $count;
 
-    /** @var \Illuminate\Support\Collection<int, callable(array<string, mixed>): array<string, mixed>> */
+    /** @var Collection<int, callable(array<string, mixed>): array<string, mixed>> */
     protected Collection $states;
 
-    /** @var \Illuminate\Support\Collection<int, Closure(TDatabaseObject): mixed> */
+    /** @var Collection<int, Closure(TDatabaseObject): mixed> */
     protected Collection $afterCreating;
 
     protected Generator $faker;
 
     /**
-     * @param \Illuminate\Support\Collection<int, callable(array<string, mixed>): array<string, mixed>> $states
-     * @param \Illuminate\Support\Collection<int, Closure(TDatabaseObject): mixed> $afterCreating
+     * @param Collection<int, callable(array<string, mixed>): array<string, mixed>> $states
+     * @param Collection<int, Closure(TDatabaseObject): mixed> $afterCreating
      */
     public function __construct(
         ?int $count = null,
@@ -354,7 +354,7 @@ abstract class DatabaseObjectFactory
     }
 
     /**
-     * @param callable(self<\Soyhuce\DatabaseObject\DatabaseObject, \Illuminate\Support\Collection>): class-string<\Soyhuce\DatabaseObject\DatabaseObject> $callback
+     * @param callable(self<DatabaseObject, Collection>): class-string<DatabaseObject> $callback
      */
     public static function guessDatabaseObjectNamesUsing(callable $callback): void
     {
@@ -369,7 +369,7 @@ abstract class DatabaseObjectFactory
     /**
      * @template TObject of \Soyhuce\DatabaseObject\DatabaseObject
      * @param class-string<TObject> $databaseObjectName
-     * @return \Soyhuce\DatabaseObject\Factory\DatabaseObjectFactory<TObject, \Illuminate\Support\Collection>
+     * @return DatabaseObjectFactory<TObject, Collection>
      */
     public static function factoryForDatabaseObject(string $databaseObjectName): self
     {
@@ -380,7 +380,7 @@ abstract class DatabaseObjectFactory
 
     /**
      * @template TObject of \Soyhuce\DatabaseObject\DatabaseObject
-     * @param callable(class-string<TObject>): class-string<\Soyhuce\DatabaseObject\Factory\DatabaseObjectFactory<TObject, \Illuminate\Support\Collection>> $callback
+     * @param callable(class-string<TObject>): class-string<DatabaseObjectFactory<TObject, Collection>> $callback
      */
     public static function guessFactoryNamesUsing(callable $callback): void
     {
@@ -395,7 +395,7 @@ abstract class DatabaseObjectFactory
     /**
      * @template TObject of \Soyhuce\DatabaseObject\DatabaseObject
      * @param class-string<TObject> $databaseObjectName
-     * @return class-string<\Soyhuce\DatabaseObject\Factory\DatabaseObjectFactory<TObject, \Illuminate\Support\Collection>>
+     * @return class-string<DatabaseObjectFactory<TObject, Collection>>
      */
     public static function resolveFactoryName(string $databaseObjectName): string
     {

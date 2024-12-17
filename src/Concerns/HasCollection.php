@@ -7,13 +7,13 @@ use Illuminate\Support\Collection;
 
 trait HasCollection
 {
-    /** @var class-string<\Illuminate\Support\Collection> */
+    /** @var class-string<Collection> */
     protected static string $collectionClass;
 
     /**
      * @template TKey of array-key
      * @param array<TKey, array<string, mixed>> $items
-     * @return \Illuminate\Support\Collection<TKey, static>
+     * @return Collection<TKey, static>
      */
     public static function collection(array $items): Collection
     {
@@ -24,7 +24,7 @@ trait HasCollection
     }
 
     /**
-     * @return class-string<\Illuminate\Support\Collection>
+     * @return class-string<Collection>
      */
     public static function collectionClass(): string
     {
