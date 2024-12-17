@@ -7,5 +7,4 @@ parameters:
         - src
     checkOctaneCompatibility: true
     checkModelProperties: true
-    checkMissingIterableValueType: true
 
