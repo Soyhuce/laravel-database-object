@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-database-object` will be documented in this file.
 
+## 1.0.0 - 2024-12-17
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.0.0 to 2.1.0 by @dependabot in https://github.com/Soyhuce/laravel-database-object/pull/4
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/Soyhuce/laravel-database-object/pull/5
+* Upgrade dependencies and php8.4 by @bastien-phi in https://github.com/Soyhuce/laravel-database-object/pull/6
+
+**Full Changelog**: https://github.com/Soyhuce/laravel-database-object/compare/0.2.0...1.0.0
+
 ## 0.2.0 - 2024-03-29
 
 ### What's Changed
