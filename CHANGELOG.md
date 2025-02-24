@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-database-object` will be documented in this file.
 
+## 1.1.0 - 2025-02-24
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/Soyhuce/laravel-database-object/pull/7
+* Run tests with Laravel 12 by @bastien-phi in https://github.com/Soyhuce/laravel-database-object/pull/8
+
+**Full Changelog**: https://github.com/Soyhuce/laravel-database-object/compare/1.0.0...1.1.0
+
 ## 1.0.0 - 2024-12-17
 
 ### What's Changed
