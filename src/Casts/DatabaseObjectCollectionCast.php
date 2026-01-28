@@ -15,7 +15,7 @@ use function is_string;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
- * @implements CastsAttributes<\Illuminate\Support\Collection<array-key,TDatabaseObject>,\Illuminate\Support\Collection<array-key,TDatabaseObject>|array<int, array<array-key, mixed>>>
+ * @implements CastsAttributes<\Illuminate\Support\Collection<array-key,TDatabaseObject>,array<int, array<array-key, mixed>>|\Illuminate\Support\Collection<array-key,TDatabaseObject>>
  */
 class DatabaseObjectCollectionCast implements CastsAttributes
 {

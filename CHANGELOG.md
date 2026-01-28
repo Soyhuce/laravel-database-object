@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-database-object` will be documented in this file.
 
+## 1.2.0 - 2026-02-27
+
+### What's Changed
+
+* Add support for PHP 8.5 in https://github.com/Soyhuce/laravel-database-object/pull/16
+
+**Full Changelog**: https://github.com/Soyhuce/laravel-database-object/compare/1.1.0...1.2.0
+
 ## 1.1.0 - 2025-02-24
 
 ### What's Changed
