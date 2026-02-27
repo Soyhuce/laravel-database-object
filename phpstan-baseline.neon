@@ -1,56 +1,79 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined static method TDateTime of DateTimeInterface\\:\\:createFromFormat\\(\\)\\.$#"
+			message: '#^Instanceof between Illuminate\\Support\\Collection\<\(int\|string\), array\<mixed\>\>\|Illuminate\\Support\\Collection\<\(int\|string\), TDatabaseObject of Soyhuce\\DatabaseObject\\DatabaseObject\> and Illuminate\\Support\\Collection will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/Casts/DatabaseObjectCollectionCast.php
+
+		-
+			message: '#^Call to an undefined static method TDateTime of DateTimeInterface\:\:createFromFormat\(\)\.$#'
+			identifier: staticMethod.notFound
 			count: 1
 			path: src/DatabaseObject.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\:\\:collectionClass\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			message: '#^Method Soyhuce\\DatabaseObject\\DatabaseObject\:\:collectionClass\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/DatabaseObject.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\:\\:factory\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			message: '#^Method Soyhuce\\DatabaseObject\\DatabaseObject\:\:factory\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/DatabaseObject.php
 
 		-
-			message: "#^Property Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\:\\:\\$collectionClass with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			message: '#^Property Soyhuce\\DatabaseObject\\DatabaseObject\:\:\$collectionClass with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/DatabaseObject.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:createOne\\(\\) should return TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject but returns Illuminate\\\\Support\\\\Collection\\<int, TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\>\\|TDatabaseObject of Soyhuce\\\\DatabaseObject\\\\DatabaseObject\\.$#"
+			message: '#^Method Soyhuce\\DatabaseObject\\Factory\\DatabaseObjectFactory\:\:createOne\(\) should return TDatabaseObject of Soyhuce\\DatabaseObject\\DatabaseObject but returns Illuminate\\Support\\Collection\<int, TDatabaseObject of Soyhuce\\DatabaseObject\\DatabaseObject\>\|TDatabaseObject of Soyhuce\\DatabaseObject\\DatabaseObject\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:factoryForDatabaseObject\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			message: '#^Method Soyhuce\\DatabaseObject\\Factory\\DatabaseObjectFactory\:\:factoryForDatabaseObject\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:guessDatabaseObjectNamesUsing\\(\\) has parameter \\$callback with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			message: '#^Method Soyhuce\\DatabaseObject\\Factory\\DatabaseObjectFactory\:\:guessDatabaseObjectNamesUsing\(\) has parameter \$callback with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:guessFactoryNamesUsing\\(\\) has parameter \\$callback with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
+			message: '#^Method Soyhuce\\DatabaseObject\\Factory\\DatabaseObjectFactory\:\:guessFactoryNamesUsing\(\) has parameter \$callback with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
 
 		-
-			message: "#^Method Soyhuce\\\\DatabaseObject\\\\Factory\\\\DatabaseObjectFactory\\:\\:resolveFactoryName\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			message: '#^Method Soyhuce\\DatabaseObject\\Factory\\DatabaseObjectFactory\:\:newInstance\(\) should return static\(Soyhuce\\DatabaseObject\\Factory\\DatabaseObjectFactory\<TDatabaseObject of Soyhuce\\DatabaseObject\\DatabaseObject, TCollection of Illuminate\\Support\\Collection\>\) but returns static\(Soyhuce\\DatabaseObject\\Factory\\DatabaseObjectFactory\<Soyhuce\\DatabaseObject\\DatabaseObject, Illuminate\\Support\\Collection\>\)\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
 
 		-
-			message: "#^Trying to invoke \\(callable\\(array\\<string, mixed\\>\\)\\: array\\<string, mixed\\>\\)\\|Closure\\|null but it might not be a callable\\.$#"
+			message: '#^Method Soyhuce\\DatabaseObject\\Factory\\DatabaseObjectFactory\:\:resolveFactoryName\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/Factory/DatabaseObjectFactory.php
 
 		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			message: '#^Trying to invoke \(callable\(array\<string, mixed\>\)\: array\<string, mixed\>\)\|Closure\|null but it might not be a callable\.$#'
+			identifier: callable.nonCallable
+			count: 1
+			path: src/Factory/DatabaseObjectFactory.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
 			count: 2
 			path: src/Factory/DatabaseObjectFactory.php

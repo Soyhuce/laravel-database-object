@@ -12,7 +12,7 @@ use function is_string;
 
 /**
  * @template TDatabaseObject of \Soyhuce\DatabaseObject\DatabaseObject
- * @implements CastsAttributes<TDatabaseObject,TDatabaseObject|array<string, mixed>>
+ * @implements CastsAttributes<TDatabaseObject,array<string, mixed>|TDatabaseObject>
  */
 class DatabaseObjectCast implements CastsAttributes
 {
